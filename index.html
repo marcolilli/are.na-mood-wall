@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>are.na Mood Wall</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <form onsubmit="return false">
+      <label for="url">are.na channel url:</label>
+      <input type="text" id="url" name="url" autofocus autocapitalize="off" />
+
+      <label for="fps">fps: <span id="fpsCount"></span></label>
+      <input
+        type="range"
+        id="fps"
+        name="fps"
+        min="1"
+        max="120"
+        value="10"
+        onchange="handleFpsChange(this.value)"
+        oninput="handleFpsChange(this.value)"
+      />
+
+      <input type="submit" value="watch" onclick="watchBoard()" />
+    </form>
+    <script>
+      function handleFpsChange(value) {
+        document.getElementById("fpsCount").innerHTML = value;
+      }
+      handleFpsChange(document.getElementById("fps").value);
+
+      function watchBoard() {
+        const url = document.getElementById("url").value;
+        const fps = document.getElementById("fps").value;
+
+        const channelId = url.split("?")[0].split("/").pop();
+
+        window.location.href = `/w?channelId=${channelId}&fps=${fps}`;
+      }
+    </script>
+  </body>
+</html>
