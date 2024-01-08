@@ -23,6 +23,9 @@
         oninput="handleFpsChange(this.value)"
       />
 
+      <label for="fullscreen">fullscreen:</label>
+      <input type="checkbox" id="fullscreen" name="fullscreen" />
+
       <input type="submit" value="watch" onclick="watchBoard()" />
     </form>
     <script>
@@ -34,10 +37,21 @@
       function watchBoard() {
         const url = document.getElementById("url").value;
         const fps = document.getElementById("fps").value;
+        const fullscreen = document.getElementById("fullscreen").checked;
 
         const channelId = url.split("?")[0].split("/").pop();
 
-        window.location.href = `/w?channelId=${channelId}&fps=${fps}`;
+        const urlParams = new URLSearchParams({
+          channelId: channelId,
+          fps: fps,
+        });
+
+        if (fullscreen) {
+          urlParams.append("fullscreen", true);
+        }
+
+        //window.location.href = `/w.html?${urlParams.toString()}`;
+        window.location.href = `/are.na-moodwall/w.html?${urlParams.toString()}`;
       }
     </script>
   </body>
